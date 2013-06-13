@@ -166,6 +166,12 @@ a different collection, not the collection of the current item.
 This would be a possible return from a GET call to http://example.org/OrderDomain/Orders/5
 In this GET the media type was Collection+JSON, not Domain+JSON.
 
+I have gone back and forth a bit on the inline. From the CJ forum I see that a heterogeneous collection is possible.
+My reasoning for the inline is that it represents the server deciding to eager load entities to the client. That
+is a RIA Services concept that I want to preserve, however I want the main payload to represent what the client
+actually requested. So, the inline allows an eager load if the client knows how to use it. If I used a heterogeneous 
+collection the client would not know the difference between the eager load and what it explicitly had requested.
+
 {
     "collection": {
         "version": "1.0",
