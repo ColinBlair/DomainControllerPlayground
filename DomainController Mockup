@@ -1,7 +1,7 @@
 Known issues:
 "rel" values have been corrected to "collection" and "item", however by the current collection+JSON meanings of those
-two, they still are not being used correctly. I need values that indicate that is it s collection or item from a 
-different collection, not the collection of the current item.
+two, they still are not being used correctly. I need values that indicate that it is either a collection or item from 
+a different collection, not the collection of the current item.
 
 {
     "domain": {
