@@ -1,0 +1,340 @@
+{
+    "domain": {
+        "version": "1.0",
+        "href": "http://example.org/OrderDomain/",
+        "collections": [
+            {
+                "collection": {
+                    "version": "1.0",
+                    "href": "http://example.org/OrderDomain/Orders",
+                    "template": {
+                        "data": [
+                            {
+                                "name": "orderId",
+                                "value": "",
+                                "prompt": "Order Id",
+                                "required": "true"
+                            },
+                            {
+                                "name": "date",
+                                "value": "",
+                                "prompt": "Order Date",
+                                "required": "true"
+                            },
+                            {
+                                "name": "customerId",
+                                "value": "",
+                                "prompt": "CustomerId"
+                            }
+                        ],
+                        "links": [
+                            {
+                                "rel": "item",
+                                "href": "http://example.org/OrderDomain/Orders/{customerId}",
+                                "prompt": "Customer",
+                                "name" : "customer"
+                            },
+                            {
+                                "rel": "collection",
+                                "href": "http://examples.org/OrderDomain/OrderItems/?orderId={orderId}",
+                                "prompt": "Items",
+                                "name": "orderItems"
+                            }
+                        ]
+                    }
+                }
+            },
+            {
+                "collection": {
+                    "version": "1.0",
+                    "href": "http://example.org/OrderDomain/Customers",
+                    "template": {
+                        "data": [
+                            {
+                                "name": "customerId",
+                                "value": "",
+                                "prompt": "Order Id",
+                                "required": "true"
+                            },
+                            {
+                                "name": "Name",
+                                "value": "",
+                                "prompt": "Customer Name"
+                            }
+                        ],
+                        "links": [
+                            {
+                                "rel": "collection",
+                                "href": "http://example.org/OrderDomain/Orders/?customerId={customerId}",
+                                "prompt": "Orders"
+                                "name": "orders"
+                            }
+                        ]
+                    }
+                }
+            },
+            {
+                "collection": {
+                    "version": "1.0",
+                    "href": "http://example.org/OrderDomain/OrderItems",
+                    "template": {
+                        "data": [
+                            {
+                                "name": "orderItemId",
+                                "value": "",
+                                "prompt": "Order Item Id",
+                                "required": "true"
+                            },
+                            {
+                                "name": "orderId",
+                                "value": "",
+                                "prompt": "Order Id",
+                                "required": "true"
+                            },
+                            {
+                                "name": "itemId",
+                                "value": "",
+                                "prompt": "ItemId"
+                            },
+                            {
+                                "name": "quantity",
+                                "value": "",
+                                "prompt": "Quantity"
+                            }
+                        ],
+                        "links": [
+                            {
+                                "rel": "item",
+                                "href": "http://example.org/OrderDomain/Orders/{orderId}",
+                                "prompt": "Order",
+                                "name": "order"
+                            },
+                            {
+                                "rel": "item",
+                                "href": "http://examples.org/OrderDomain/Items/{itemId}",
+                                "prompt": "Item"
+                                "name": "item"
+                            }
+                        ]
+                    }
+                }
+            },
+            {
+                "collection": {
+                    "version": "1.0",
+                    "href": "http://example.org/OrderDomain/Items",
+                    "template": {
+                        "data": [
+                            {
+                                "name": "itemId",
+                                "value": "",
+                                "prompt": "Item Id",
+                                "required": "true"
+                            },
+                            {
+                                "name": "description",
+                                "value": "",
+                                "prompt": "Description",
+                                "required": "true"
+                            },
+                            {
+                                "name": "cost",
+                                "value": "",
+                                "prompt": "Cost"
+                            }
+                        ],
+                        "links": [
+                            {
+                                "rel": "collection",
+                                "href": "http://examples.org/OrderDomain/OrderItems/?itemId={itemId}",
+                                "prompt": "Order Items"
+                                "name": "orderItems",
+                            }
+                        ]
+                    }
+                }
+            }
+        ]
+    }
+} 
+
+This would be a possible return from a GET call to http://example.org/OrderDomain/Orders/5
+In this GET the media type was Collection+JSON, not Domain+JSON.
+
+{
+    "collection": {
+        "version": "1.0",
+        "href": "http://example.org/OrderDomain/Orders",
+        "links": {
+            "rel": "domain",
+            "href": "http://examples.org/OrderDomain"
+        },
+        "items": [
+            {
+                "href": "http://example.org/OrderDomain/Orders/5",
+                "data": [
+                    {
+                        "name": "orderId",
+                        "value": "5"
+                    },
+                    {
+                        "name": "date",
+                        "value": "6/12/2013"
+                    },
+                    {
+                        "name": "customerId",
+                        "value": "7",
+                        "prompt": "CustomerId"
+                    }
+                ]
+            }
+        ],
+        "inline": [
+            {
+                "collection": {
+                    "version": "1.0",
+                    "href": "http://example.org/OrderDomain/Customers",
+                    "items": [
+                        {
+                            "href": "http://example.org/OrderDomain/Customers/7",
+                            "data": [
+                                {
+                                    "name": "customerId",
+                                    "value": "7"
+                                },
+                                {
+                                    "name": "Name",
+                                    "value": "Acme, Inc",
+                                    "prompt": "Customer Name"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            },
+            {
+                "collection": {
+                    "version": "1.0",
+                    "href": "http://example.org/OrderDomain/OrderItems",
+                    "items": [
+                        {
+                            "href": "http://example.org/OrderDomain/OrderItems/27",
+                            "data": [
+                                {
+                                    "name": "orderItemId",
+                                    "value": "27"
+                                },
+                                {
+                                    "name": "orderId",
+                                    "value": "5"
+                                },
+                                {
+                                    "name": "itemId",
+                                    "value": "35"
+                                },
+                                {
+                                    "name": "quantity",
+                                    "value": "4"
+                                }
+                            ]
+                        },
+                        {
+                            "href": "http://example.org/OrderDomain/OrderItems/28",
+                            "data": [
+                                {
+                                    "name": "orderItemId",
+                                    "value": "28"
+                                },
+                                {
+                                    "name": "orderId",
+                                    "value": "5"
+                                },
+                                {
+                                    "name": "itemId",
+                                    "value": "78"
+                                },
+                                {
+                                    "name": "quantity",
+                                    "value": "6"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            }
+        ]
+    }
+}
+
+Here is a PATCH to the Domain
+
+{
+    "domain": {
+        "version": "1.0",
+        "href": "http://example.org/OrderDomain/",
+        "collections": [
+            {
+                "collection": {
+                    "version": "1.0",
+                    "href": "http://example.org/OrderDomain/OrderItems",
+                    "items": [
+                        {
+                            "href": "http://example.org/OrderDomain/OrderItems/27",
+                            "data": [
+                                {
+                                    "name": "orderItemId",
+                                    "value": "27"
+                                },
+                                {
+                                    "name": "orderId",
+                                    "value": "5"
+                                },
+                                {
+                                    "name": "itemId",
+                                    "value": "35"
+                                },
+                                {
+                                    "name": "quantity",
+                                    "value": "5"
+                                }
+                            ],
+                            "originalData": [
+                                {
+                                    "name": "quantity",
+                                    "value": "4"
+                                }
+                            ]
+                        },
+                        {
+                            "href": "http://example.org/OrderDomain/OrderItems/28",
+                            "data": [
+                                {
+                                    "name": "orderItemId",
+                                    "value": "28"
+                                },
+                                {
+                                    "name": "orderId",
+                                    "value": "5"
+                                },
+                                {
+                                    "name": "itemId",
+                                    "value": "78"
+                                },
+                                {
+                                    "name": "quantity",
+                                    "value": "3"
+                                }
+                            ],
+                            "originalData": [
+                                {
+                                    "name": "quantity",
+                                    "value": "6"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            }
+        ]
+    }
+} 
