@@ -277,7 +277,17 @@ collection the client would not know the difference between the eager load and w
     }
 }
 
-Here is a PATCH to the Domain
+Here is a PATCH to the Domain. 
+
+Possible operation values are:
+Custom
+Delete
+Insert
+None
+Update
+
+I considered using HTTP commands instead (i.e. PUT, POST, etc) but decided that was that was confusing the protocol
+with the message format.
 
 {
     "domain": {
@@ -291,6 +301,7 @@ Here is a PATCH to the Domain
                     "items": [
                         {
                             "href": "http://example.org/OrderDomain/OrderItems/27",
+                            "operation": "UPDATE"
                             "data": [
                                 {
                                     "name": "orderItemId",
@@ -318,6 +329,7 @@ Here is a PATCH to the Domain
                         },
                         {
                             "href": "http://example.org/OrderDomain/OrderItems/28",
+                            "operation": "UPDATE"
                             "data": [
                                 {
                                     "name": "orderItemId",
